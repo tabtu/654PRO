@@ -1,0 +1,1 @@
+Representing Classes As Property Values on the Semantic Web

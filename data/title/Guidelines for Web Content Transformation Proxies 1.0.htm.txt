@@ -1,0 +1,1 @@
+Guidelines for Web Content Transformation Proxies 1.0

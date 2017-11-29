@@ -1,0 +1,1 @@
+Component Extension (CX) API requirements Version 1.0

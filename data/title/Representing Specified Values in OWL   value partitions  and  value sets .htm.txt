@@ -1,0 +1,1 @@
+Representing Specified Values in OWL: "value partitions" and "value sets"

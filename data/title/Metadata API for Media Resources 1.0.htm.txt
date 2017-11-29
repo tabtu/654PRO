@@ -1,0 +1,1 @@
+Metadata API for Media Resources 1.0
