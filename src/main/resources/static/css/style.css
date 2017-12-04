@@ -1,0 +1,109 @@
+* {
+  margin:0px;
+  padding: 0px;
+}
+.container {
+  width: 102%;
+  margin-left: -1em;
+}
+.video_class {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 100% 100%;
+  display: inline-block;
+}
+.search_box {
+  width: 30em;
+}
+.btn {
+  background-color: #09bb8f;
+  color: white;
+  border: 1px solid #09bb8f;
+}
+.btn:hover {
+  background-color: white;
+  color: #09bb8f;
+  transition: all 0.5s;
+}
+.logo {
+  margin-top: -10em;
+  width: 50%;
+  margin-left: -8em;
+  margin-bottom: 1em;
+}
+.bg_class {
+  background: rgba(0,0,0,.3);
+  width:100%;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.text_class {
+  position:absolute;
+  top: 45%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+}
+.text_class p {
+  color: white;
+}
+.infor {
+  margin-top: 4em;
+  margin-left: -17em;
+}
+em {
+  color: white;
+  font-size: 0.8em;
+}
+.videos_res {
+  overflow: hidden;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+/*Search*/
+.header {
+	background-color: #fafafa;
+	padding: 1em;
+	width: 100%;
+}
+.header img {
+	width: 55%;
+	margin-top: 0.5em;
+}
+.header .search_box {
+	margin-left: -8em;
+  width: 40em;
+  margin-top: 2em;
+}
+.header button {
+	margin-top: 2em;
+}
+.header .col-sm-5 {
+	width: 120%;
+	margin-top: 1em;
+	margin-left: -8em;
+}
+.header .col-sm-5 em{
+	color: black !important;
+}
+.result {
+	margin-top: 14%;
+	margin-left: 19%;
+	margin-bottom: 5%;
+}
+.result_pannel {
+	margin-top: -1%;
+}

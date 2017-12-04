@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Service;
 import uow.csac.tsv.searchengine.config.Config;
 import uow.csac.tsv.searchengine.config.Path;
 import uow.csac.tsv.searchengine.utils.io.In;
@@ -18,12 +19,17 @@ import uow.csac.tsv.searchengine.utils.io.Out;
  * @Author Tab Tu
  * @Update Nov.28 2017
  */
+@Service
 public class Index {
 
 	private HashMap<String, String> index;
 
 	public Index() {
 
+	}
+
+	public Index(String filename) {
+		loadIndex(filename);
 	}
 
 	public void setIndex(HashMap<String, String> myhs) {
@@ -71,20 +77,24 @@ public class Index {
 					int wordStart = fullContentOrigin.indexOf(str);  // location
 					while (wordStart > 0) {
 						String strTmp;
-						int s = 0, e = fullContentOrigin.length();
+						int s = 0;
+						int e = fullContentOrigin.length();
 						if (wordStart > Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD) {
 							s = wordStart - Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD;
 						}
 						if (e > (wordStart + Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD)) {
 							e = wordStart + Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD;
 						}
+						System.out.println("------------------------------" + s + ", " + e);
 						strTmp = fullContentOrigin.substring(s, e);
 						partContent += (strTmp + "......");
+
 						fullContentOrigin = fullContentOrigin.substring(e);
 						wordStart = fullContentOrigin.indexOf(str);
 					}
+					System.out.println(":::" + partContent);
 					// into des order
-					String tmp = fileName + "#@#" + titleOrigin + "#@#" + partContent + "#@#" + hashMap.get(str);
+					String tmp = fileName + "#@#" + titleOrigin + "#@#" + "^^^" + partContent + "%%%" + "#@#" + hashMap.get(str);
 					if (index.keySet().contains(str)) {
 						// include this word
 						String value = (String) index.get(str);

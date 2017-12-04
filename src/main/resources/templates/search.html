@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Result</title>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{css/style.css}"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+        	<div class="header col-sm-11">
+        		<div class="col-sm-3">
+        			<a th:href="@{/index}"><img th:src="@{img/slogo.png}" /></a>
+        		</div>
+        		<div class="col-sm-8">
+        			 <form role="form" method="post" th:action="@{/search}">
+                        <div class="col-sm-4 search_box">
+                            <input type="text" class="form-control" name="key"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn" type="submit">Search</button>
+                        </div>
+                        <div class="col-sm-5">
+                        	<em>© 2017 Tengxiaotao Tu. Junwei Wu. Yunpeng Bai</em>
+                    	</div>
+                    </form>
+        		</div>
+        	</div>
+        	<div class="front">
+        		
+        	</div>
+        	<div class="result">
+        		<div th:each="result : ${results}" >
+        			<h3><a th:href="${result.url}" th:text="${result.title}"></a></h3>
+        			<p class="result_pannel" style="color:green" th:text="${result.url}"></p>
+        			<p class="result_pannel">Words' frequency: <span th:text="${result.wordV}"></span> times</p>
+        			<p class="result_pannel" th:text="${result.partContent}"></p>
+        			<br/>
+        		</div>
+        	</div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

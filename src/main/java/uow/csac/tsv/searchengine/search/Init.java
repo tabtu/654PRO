@@ -12,10 +12,12 @@ public class Init {
         try {
 //            Text.Html2Text();
 //            Text.SeparateWord();
-
+//
             Index index = new Index();
-//            index.createIndex();
-//            index.saveIndex("data/index.idx");
+//
+            index.createIndex();
+            index.saveIndex("data/index.idx");
+
             index.loadIndex("data/index.idx");
             Engine engine = new Engine();
             engine.setEngine(index.getIndex());
@@ -23,6 +25,7 @@ public class Init {
             for (int i = 0; i < testList.size(); i++) {
                 testList.get(i).printInfo();
                 System.out.println(i);
+                System.out.println(testList.get(i).getPartContent());
             }
         } catch (Exception e) {
             e.printStackTrace();

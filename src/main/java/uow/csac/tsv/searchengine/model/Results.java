@@ -41,7 +41,7 @@ public class Results implements Comparable<Results> {
 		this.word = word;
 		if (result.indexOf("#@#") > 0) {
 			String[] array = result.split("#@#");
-			this.url = "http://" + array[0].replaceFirst("_", "/").replaceAll(".txt", "");
+			this.url = "http://www.tabtu.cn/654/" + array[0].replaceFirst("_", "/").replaceAll(".txt", "");
 			this.title = array[1];
 			this.partContent = array[2];
 			this.wordV = Integer.parseInt(array[3].trim());

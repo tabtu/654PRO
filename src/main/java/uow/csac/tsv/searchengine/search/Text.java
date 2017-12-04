@@ -1,5 +1,6 @@
 package uow.csac.tsv.searchengine.search;
 
+import org.springframework.stereotype.Service;
 import uow.csac.tsv.searchengine.config.Path;
 import uow.csac.tsv.searchengine.utils.ConvertHTML;
 import uow.csac.tsv.searchengine.utils.Func;
@@ -13,6 +14,7 @@ import java.io.IOException;
  * @Author Tab Tu
  * @Update Nov.28 2017
  */
+@Service
 public class Text {
 
     /**

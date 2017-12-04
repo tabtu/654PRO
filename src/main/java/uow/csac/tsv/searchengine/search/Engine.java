@@ -1,5 +1,7 @@
 package uow.csac.tsv.searchengine.search;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
 import uow.csac.tsv.searchengine.model.Results;
@@ -23,6 +25,7 @@ import java.util.Vector;
  * @Author Tab Tu
  * @Update Nov.28 2017
  */
+@Service
 public class Engine {
 	/**  */
 	private String indexFile; // the index file
@@ -50,6 +53,12 @@ public class Engine {
 	 */
 	public Engine() {
 
+	}
+
+	public Engine(String filename) {
+		Index idx = new Index();
+		idx.loadIndex(filename);
+		this.setEngine(idx.getIndex());
 	}
 
 	/**
