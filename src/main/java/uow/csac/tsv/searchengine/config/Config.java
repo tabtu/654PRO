@@ -44,7 +44,7 @@ public final class Config {
 	/**
 	 * the default length before and after the key word.
 	 */
-	public static final int DEFAULT_LEN_BEFORE_AFTER_KEYWORD = 10;
+	public static final int DEFAULT_LEN_BEFORE_AFTER_KEYWORD = 20;
 
 	/**
 	 * the maximum number that retry when download.

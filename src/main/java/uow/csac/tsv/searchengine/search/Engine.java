@@ -63,6 +63,7 @@ public class Engine {
 
 	/**
 	 * 获得结果集合.
+	 *
 	 * @param key key
 	 * @return ArrayList<Results>
 	 */
@@ -109,9 +110,14 @@ public class Engine {
 					// 将结果按照词频排序
 					Collections.sort(modList);
 				}
-				for (int i = 0; i < modListAfter.size(); i++) {
-					for (int j = 0; j < modListBefore.size(); j++) {
+				for (int i = modListAfter.size() - 1; i >= 0; i--) {
+					for (int j = modListBefore.size(); j >= 0; j--) {
+//				for (int i = 0; i < modListAfter.size(); i++) {
+//					for (int j = 0; j < modListBefore.size(); j++) {
 						if (modListBefore.get(j).getUrl().equals(modListAfter.get(i).getUrl())) {
+							Results tmp = modListBefore.get(j);
+							tmp.setWord(key);
+							modListBefore.set(j, tmp);
 							modList.add(modListBefore.get(j));
 						}
 					}
@@ -163,9 +169,16 @@ public class Engine {
 					// 将结果按照词频排序
 					Collections.sort(modList);
 				}
-				for (int i = 0; i < modListAfter.size(); i++) {
-					for (int j = 0; j < modListBefore.size(); j++) {
+				for (int i = modListAfter.size() - 1; i >= 0; i--) {
+					for (int j = modListBefore.size(); j >= 0; j--) {
+//				for (int i = 0; i < modListAfter.size(); i++) {
+//					for (int j = 0; j < modListBefore.size(); j++) {
 						if (modListBefore.get(j).getUrl().equals(modListAfter.get(i).getUrl())) {
+
+							Results tmp = modListBefore.get(j);
+							tmp.setWord(key);
+							modListBefore.set(j, tmp);
+
 							modListBefore.remove(j);
 						}
 					}
@@ -225,6 +238,7 @@ public class Engine {
 
 	/**
 	 * 获得处理时间.
+	 *
 	 * @return long
 	 */
 	public final long getTime() {
@@ -233,6 +247,7 @@ public class Engine {
 
 	/**
 	 * 合并相同出处内容的词频.
+	 *
 	 * @param modList modList
 	 */
 	private void resultMerger(final ArrayList<Results> modList) {
@@ -250,6 +265,7 @@ public class Engine {
 
 	/**
 	 * 对关键词高亮显示.
+	 *
 	 * @param content content
 	 * @return String
 	 */

@@ -91,7 +91,7 @@ public class SpiltWORD {
 		IKSegmenter iksegmentation = new IKSegmenter(filereader, true);
 		try {
 			while ((lexeme = iksegmentation.next()) != null) {
-				filewriter.write(lexeme.getLexemeText());
+				filewriter.write(lexeme.getLexemeText().toLowerCase());
 				filewriter.write(" ");
 			}
 		} catch (IOException e2) {

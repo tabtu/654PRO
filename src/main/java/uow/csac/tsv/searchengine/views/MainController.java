@@ -16,11 +16,6 @@ import java.util.List;
 
 @Controller
 public class MainController {
-    @Autowired
-    private Engine engine;
-
-    @Autowired
-    private Index index;
 
     @GetMapping("/")
     public String index0() {
@@ -40,7 +35,10 @@ public class MainController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView psearch(HttpServletRequest request) {
         String key = request.getParameter("key");
+        key.replace(' ', '&');
+        Index index = new Index();
         index.loadIndex("data/index.idx");
+        Engine engine = new Engine();
         engine.setEngine(index.getIndex());
         ArrayList<Results> resultlist = engine.getResultSet(key);
         for (int i = 0; i < resultlist.size(); i++) {

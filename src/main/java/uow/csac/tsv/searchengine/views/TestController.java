@@ -15,16 +15,13 @@ import java.util.List;
 
 @RestController
 public class TestController {
-    @Autowired
-    private Engine engine;
-
-    @Autowired
-    private Index index;
 
     @RequestMapping(value = "/test{key}", method = RequestMethod.GET)
     public List<Results> test(HttpServletRequest request) {
         String key = request.getParameter("key");
+        Index index = new Index();
         index.loadIndex("data/index.idx");
+        Engine engine = new Engine();
         engine.setEngine(index.getIndex());
         return engine.getResultSet(key);
     }

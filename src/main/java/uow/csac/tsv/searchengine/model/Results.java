@@ -2,7 +2,7 @@ package uow.csac.tsv.searchengine.model;
 
 /**
  * 结果模型，用来存放单个的检索结果.
- * String tmp = str + " " + fileName +"#@#" + title + "#@#" + hashMap.get(str) + "#@#" + num + "#next#"
+ * String tmp = str + " " + fileName +"#@#" + title + "#@#" + hashMap.get(str) + "#@#" + num + "#->#"
  *
  * @Author Tab Tu
  * @Update Nov.28 2017
@@ -46,6 +46,10 @@ public class Results implements Comparable<Results> {
 			this.partContent = array[2];
 			this.wordV = Integer.parseInt(array[3].trim());
 		}
+	}
+
+	public final void setWord(String tmp) {
+		this.word = tmp;
 	}
 
 	/**

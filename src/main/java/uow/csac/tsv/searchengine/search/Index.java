@@ -11,8 +11,10 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import uow.csac.tsv.searchengine.config.Config;
 import uow.csac.tsv.searchengine.config.Path;
+import uow.csac.tsv.searchengine.utils.KMP;
 import uow.csac.tsv.searchengine.utils.io.In;
 import uow.csac.tsv.searchengine.utils.io.Out;
+import uow.csac.tsv.searchengine.utils.io.StdOut;
 
 /**
  *
@@ -72,29 +74,32 @@ public class Index {
 				String titleOrigin = FileUtils.readFileToString(new File(Path.TITLE + fileName), "UTF-8");
 				// the the content
 				String fullContentOrigin = FileUtils.readFileToString(new File(Path.CONTENT + fileName), "UTF-8");
+
+//				StdOut.println(fullContentOrigin.toLowerCase());
 				for (String str : hashMap.keySet()) {
+					String title = titleOrigin;
+					String fullContent = fullContentOrigin.toLowerCase();
 					String partContent = "";
-					int wordStart = fullContentOrigin.indexOf(str);  // location
-					while (wordStart > 0) {
+
+					int wordStart = fullContent.indexOf(str, 0);  // location
+//					System.out.println(str + ": " + wordStart + "```````````````````````````````");
+					if (wordStart > 0) {
 						String strTmp;
-						int s = 0;
-						int e = fullContentOrigin.length();
+						int s = 0, e = fullContentOrigin.length();
 						if (wordStart > Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD) {
 							s = wordStart - Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD;
 						}
 						if (e > (wordStart + Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD)) {
 							e = wordStart + Config.DEFAULT_LEN_BEFORE_AFTER_KEYWORD;
 						}
-						System.out.println("------------------------------" + s + ", " + e);
 						strTmp = fullContentOrigin.substring(s, e);
-						partContent += (strTmp + "......");
-
-						fullContentOrigin = fullContentOrigin.substring(e);
-						wordStart = fullContentOrigin.indexOf(str);
+						partContent = ("......" + strTmp + "......");
+//						fullContent = fullContent.substring(e);
+//						wordStart = fullContent.indexOf(str);
 					}
-					System.out.println(":::" + partContent);
+//					System.out.println(wordStart + " ::: " + partContent);
 					// into des order
-					String tmp = fileName + "#@#" + titleOrigin + "#@#" + "^^^" + partContent + "%%%" + "#@#" + hashMap.get(str);
+					String tmp = fileName + "#@#" + title + "#@#" + partContent + "#@#" + hashMap.get(str);
 					if (index.keySet().contains(str)) {
 						// include this word
 						String value = (String) index.get(str);

@@ -12,16 +12,16 @@ public class Init {
         try {
 //            Text.Html2Text();
 //            Text.SeparateWord();
-//
+
             Index index = new Index();
-//
-            index.createIndex();
-            index.saveIndex("data/index.idx");
+
+//            index.createIndex();
+//            index.saveIndex("data/index.idx");
 
             index.loadIndex("data/index.idx");
             Engine engine = new Engine();
             engine.setEngine(index.getIndex());
-            ArrayList<Results> testList = engine.getResultSet("architecture");
+            ArrayList<Results> testList = engine.getResultSet("test");
             for (int i = 0; i < testList.size(); i++) {
                 testList.get(i).printInfo();
                 System.out.println(i);
