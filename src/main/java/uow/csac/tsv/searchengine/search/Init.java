@@ -15,18 +15,18 @@ public class Init {
 
             Index index = new Index();
 
-//            index.createIndex();
-//            index.saveIndex("data/index.idx");
+            index.createIndex();
+            index.saveIndex("data/index.idx");
 
-            index.loadIndex("data/index.idx");
-            Engine engine = new Engine();
-            engine.setEngine(index.getIndex());
-            ArrayList<Results> testList = engine.getResultSet("test");
-            for (int i = 0; i < testList.size(); i++) {
-                testList.get(i).printInfo();
-                System.out.println(i);
-                System.out.println(testList.get(i).getPartContent());
-            }
+//            index.loadIndex("data/index.idx");
+//            Engine engine = new Engine();
+//            engine.setEngine(index.getIndex());
+//            ArrayList<Results> testList = engine.getResultSet("css");
+//            for (int i = 0; i < testList.size(); i++) {
+//                testList.get(i).printInfo();
+//                System.out.println(i);
+//                System.out.println(testList.get(i).getPartContent());
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }

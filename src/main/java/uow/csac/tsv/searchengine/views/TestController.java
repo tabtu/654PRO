@@ -16,13 +16,19 @@ import java.util.List;
 @RestController
 public class TestController {
 
-    @RequestMapping(value = "/test{key}", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
     public List<Results> test(HttpServletRequest request) {
         String key = request.getParameter("key");
+        key.replace(' ', '&');
         Index index = new Index();
         index.loadIndex("data/index.idx");
         Engine engine = new Engine();
         engine.setEngine(index.getIndex());
-        return engine.getResultSet(key);
+        ArrayList<Results> resultlist = engine.getResultSet(key);
+        for (int i = 0; i < resultlist.size(); i++) {
+            resultlist.get(i).printInfo();
+            System.out.println(i);
+        }
+        return resultlist;
     }
 }

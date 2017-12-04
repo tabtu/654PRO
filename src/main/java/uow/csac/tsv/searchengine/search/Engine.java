@@ -69,18 +69,19 @@ public class Engine {
 	 */
 	public final ArrayList<Results> getResultSet(final String key) {
 		int pos = key.indexOf("&");
+		int posDiff = key.indexOf("-");
+		ArrayList<Results> modList = new ArrayList<>();
+		long begin = System.currentTimeMillis();
 		if (pos > 0) {
 			symbol = 1;
 			String keyBefore = key.substring(0, pos);
 			String keyAfter = key.substring(pos + 1, key.length());
 			vecKey.add(keyBefore);
 			vecKey.add(keyAfter);
-			System.out.println("keyBefore is:" + keyBefore + "keyAfter is:" + keyAfter);
-			ArrayList<Results> modList = new ArrayList<>();
+//			System.out.println("keyBefore is:" + keyBefore + "keyAfter is:" + keyAfter);
 			ArrayList<Results> modListBefore = new ArrayList<>();
 			ArrayList<Results> modListAfter = new ArrayList<>();
 			if (this.hashWord.size() > 0) {
-				long begin = System.currentTimeMillis();
 				Results[] modArray;
 				String resultBefore = this.hashWord.get(keyBefore);
 				String resultAfter = this.hashWord.get(keyAfter);
@@ -110,36 +111,24 @@ public class Engine {
 					// 将结果按照词频排序
 					Collections.sort(modList);
 				}
-				for (int i = modListAfter.size() - 1; i >= 0; i--) {
-					for (int j = modListBefore.size(); j >= 0; j--) {
-//				for (int i = 0; i < modListAfter.size(); i++) {
-//					for (int j = 0; j < modListBefore.size(); j++) {
+				for (int i = 0; i < modListAfter.size(); i++) {
+					for (int j = 0; j < modListBefore.size(); j++) {
 						if (modListBefore.get(j).getUrl().equals(modListAfter.get(i).getUrl())) {
-							Results tmp = modListBefore.get(j);
-							tmp.setWord(key);
-							modListBefore.set(j, tmp);
 							modList.add(modListBefore.get(j));
 						}
 					}
 				}
-				long end = System.currentTimeMillis();
-				this.time += (end - begin);
 			}
-			return modList;
-		}
-		int posDiff = key.indexOf("-");
-		if (posDiff > 0) {
+		} else if (posDiff > 0) {
 			symbol = 1;
 			String keyBefore = key.substring(0, posDiff);
 			String keyAfter = key.substring(posDiff + 1, key.length());
 			vecKey.add(keyBefore);
 			vecKey.add(keyAfter);
-			System.out.println("keyBefore is:" + keyBefore + "keyAfter is:" + keyAfter);
-			ArrayList<Results> modList = new ArrayList<>();
+//			System.out.println("keyBefore is:" + keyBefore + "keyAfter is:" + keyAfter);
 			ArrayList<Results> modListBefore = new ArrayList<>();
 			ArrayList<Results> modListAfter = new ArrayList<>();
 			if (this.hashWord.size() > 0) {
-				long begin = System.currentTimeMillis();
 				Results[] modArray;
 				String resultBefore = this.hashWord.get(keyBefore);
 				String resultAfter = this.hashWord.get(keyAfter);
@@ -148,7 +137,6 @@ public class Engine {
 				for (int i = 0; i < array.length; i++) {
 					modArray[i] = new Results(keyBefore, array[i]);
 				}
-
 				if (modArray != null) {
 					for (int i = 0; i < modArray.length; i++) {
 						modListBefore.add(modArray[i]);
@@ -161,7 +149,6 @@ public class Engine {
 				for (int i = 0; i < array.length; i++) {
 					modArray[i] = new Results(keyAfter, array[i]);
 				}
-
 				if (modArray != null) {
 					for (int i = 0; i < modArray.length; i++) {
 						modListAfter.add(modArray[i]);
@@ -169,16 +156,9 @@ public class Engine {
 					// 将结果按照词频排序
 					Collections.sort(modList);
 				}
-				for (int i = modListAfter.size() - 1; i >= 0; i--) {
-					for (int j = modListBefore.size(); j >= 0; j--) {
-//				for (int i = 0; i < modListAfter.size(); i++) {
-//					for (int j = 0; j < modListBefore.size(); j++) {
+				for (int i = 0; i < modListAfter.size(); i++) {
+					for (int j = 0; j < modListBefore.size(); j++) {
 						if (modListBefore.get(j).getUrl().equals(modListAfter.get(i).getUrl())) {
-
-							Results tmp = modListBefore.get(j);
-							tmp.setWord(key);
-							modListBefore.set(j, tmp);
-
 							modListBefore.remove(j);
 						}
 					}
@@ -186,54 +166,58 @@ public class Engine {
 				for (int i = 0; i < modListBefore.size(); i++) {
 					modList.add(modListBefore.get(i));
 				}
-				long end = System.currentTimeMillis();
-				this.time += (end - begin);
 			}
-			return modList;
-		}
-
-		ArrayList<Results> modList = new ArrayList<>();
-		if (this.hashWord.size() > 0) {
-			long begin = System.currentTimeMillis();
-			Results[] modArray = null;
-			// 对关键字分词
-			IKSegmenter iksegmentation = new IKSegmenter(new StringReader(key), true);
-			Lexeme lexeme;
-			try {
-				while ((lexeme = iksegmentation.next()) != null) {
-					System.out.println(lexeme.getLexemeText());
-					vecKey.add(lexeme.getLexemeText());
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			// 分别查找各个词在索引中的匹配
-			for (String strKey : vecKey) {
-				String result = this.hashWord.get(strKey);
-				if (result != null) {
-					String[] array = result.split("#->#"); // 得到存在该关键字的所有文本文件信息
-					modArray = new Results[array.length]; // 每个文本文件信息都可以获得一个ResultModel
-					for (int i = 0; i < array.length; i++) {
-						modArray[i] = new Results(key, array[i]);
+		} else {
+			if (this.hashWord.size() > 0) {
+				Results[] modArray = null;
+				// 对关键字分词
+				IKSegmenter iksegmentation = new IKSegmenter(new StringReader(key), true);
+				Lexeme lexeme;
+				try {
+					while ((lexeme = iksegmentation.next()) != null) {
+						System.out.println(lexeme.getLexemeText());
+						vecKey.add(lexeme.getLexemeText());
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-				// }
-
-				if (modArray != null) {
-					for (int i = 0; i < modArray.length; i++) {
-						modList.add(modArray[i]);
+				// 分别查找各个词在索引中的匹配
+				for (String strKey : vecKey) {
+					String result = this.hashWord.get(strKey);
+					if (result != null) {
+						String[] array = result.split("#->#"); // 得到存在该关键字的所有文本文件信息
+						modArray = new Results[array.length]; // 每个文本文件信息都可以获得一个ResultModel
+						for (int i = 0; i < array.length; i++) {
+							modArray[i] = new Results(key, array[i]);
+						}
 					}
 
-					// 合并相同出处内容的词频
-					this.resultMerger(modList);
-					// 将结果按照词频排序
-					Collections.sort(modList);
+					if (modArray != null) {
+						for (int i = 0; i < modArray.length; i++) {
+							modList.add(modArray[i]);
+						}
+
+						// 合并相同出处内容的词频
+						this.resultMerger(modList);
+						// 将结果按照词频排序
+						Collections.sort(modList);
+					}
 				}
 			}
-			long end = System.currentTimeMillis();
-			this.time += (end - begin);
 		}
-		return modList;
+
+		this.time += (System.currentTimeMillis() - begin);
+
+		// 重新排序，逆序
+		ArrayList<Results> sortlist = new ArrayList<>();
+		if(modList.size() > 0) {
+			for (int k = modList.size() - 1; k >= 0; k--) {
+				Results tmp = modList.get(k);
+//				tmp.setPartContent(highLightKey(tmp.getPartContent()));
+				sortlist.add(tmp);
+			}
+		}
+		return sortlist;
 	}
 
 	/**
@@ -270,7 +254,7 @@ public class Engine {
 	 * @return String
 	 */
 	public final String highLightKey(String content) {
-		content = content.replaceAll(" ", "");
+//		content = content.replaceAll(" ", "");
 		for (String word : this.vecKey) {
 			content = content.replaceAll(word, "<font style='color:#ff0000;font-weight:bold;'>" + word + "</font>");
 		}

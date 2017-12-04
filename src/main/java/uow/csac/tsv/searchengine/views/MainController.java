@@ -47,6 +47,7 @@ public class MainController {
         }
         ModelAndView mav = new ModelAndView("search");
         mav.addObject("results", resultlist);
+        mav.addObject("key", key);
         return mav;
     }
 

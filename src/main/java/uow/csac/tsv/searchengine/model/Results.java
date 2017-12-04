@@ -52,6 +52,10 @@ public class Results implements Comparable<Results> {
 		this.word = tmp;
 	}
 
+	public final void setPartContent(String tmp) {
+		this.partContent = tmp;
+	}
+
 	/**
 	 *
 	 * @return String
