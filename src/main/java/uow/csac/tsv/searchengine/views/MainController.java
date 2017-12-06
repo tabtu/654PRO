@@ -48,6 +48,9 @@ public class MainController {
         ModelAndView mav = new ModelAndView("search");
         mav.addObject("results", resultlist);
         mav.addObject("key", key);
+        double tmas = ((double)engine.getTime() / 1000);
+        mav.addObject("time", tmas);
+        mav.addObject("count", resultlist.size());
         return mav;
     }
 

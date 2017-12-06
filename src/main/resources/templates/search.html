@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title>Result</title>
     <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{css/style.css}"/>
+    <link rel="stylesheet" th:href="@{css/style.css}"/>   
 </head>
 <body>
     <div class="container">
@@ -16,10 +16,10 @@
         		<div class="col-sm-8">
         			 <form role="form" method="post" th:action="@{/search}">
                         <div class="col-sm-4 search_box">
-                            <input type="text" class="form-control" name="key"/>
+                            <input id="search_key" type="text" class="form-control" name="key" th:value="${key}"/>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn" type="submit">Search</button>
+                            <button id="btnSearch" class="btn" type="submit" onClick="include()">Search</button>
                         </div>
                         <div class="col-sm-5">
                         	<em>© 2017 Tengxiaotao Tu. Junwei Wu. Yunpeng Bai</em>
@@ -27,22 +27,21 @@
                     </form>
         		</div>
         	</div>
-        	<div class="front">
-        		
-        	</div>
+        	
         	<div class="result">
+        	<div>
+        		<p style="color:grey;">Searching time: <span th:text="${time}"></span>s. Total <span th:text="${count}"></span> results.</p>
+        	</div>
         		<div th:each="result : ${results}" >
         			<h3><a th:href="${result.url}" th:text="${result.title}"></a></h3>
-        			<p class="result_pannel" style="color:green" th:text="${result.url}"></p>
-        			<p class="result_pannel">Words' frequency: <span th:text="${result.wordV}"></span> times</p>
-        			<p class="result_pannel" th:text="${result.partContent}"></p>
+        			<p id="ns" class="result_pannel" style="color:green" th:text="${result.url}"></p>
+        			<p id="ns" class="result_pannel" th:text="${result.partContent}"></p>
+        			<p id="ns" class="result_pannel">Words' frequency: <span th:text="${result.wordV}"></span> times</p>
         			<br/>
         		</div>
         	</div>
         </div>
     </div>
-
-
 
 </body>
 </html>
